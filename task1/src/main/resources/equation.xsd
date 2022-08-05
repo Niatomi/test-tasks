@@ -1,0 +1,32 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://niatomi.ru/EquationSerivce"
+           xmlns:xsi="http://www.w3.org/1999/XSL/Transform"
+           targetNamespace="http://niatomi.ru/EquationSerivce" elementFormDefault="qualified">
+
+    <xs:element name="getEquationRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="a" type="xs:int"/>
+                <xs:element name="b" type="xs:int"/>
+                <xs:element name="c" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getEquationResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="equation" type="xs:string"/>
+                <xs:element name="solve" type="tns:solve"/>
+                <xs:element name="error" minOccurs="0" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="solve">
+        <xs:sequence>
+            <xs:element name="D" type="xs:int"/>
+            <xs:element name="x1" minOccurs="0" type="xs:int"/>
+            <xs:element name="x2" minOccurs="0" type="xs:int"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
