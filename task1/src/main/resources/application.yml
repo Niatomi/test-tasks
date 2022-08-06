@@ -1,0 +1,3 @@
+server:
+  baseUrl: /api
+  port: 8080
