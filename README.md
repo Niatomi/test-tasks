@@ -15,3 +15,8 @@
 ../test-tasks/task2> cd target
 ../test-tasks/task2/target> java -jar task2-1.0-SNAPSHOT.jar
 ```
+Запуск при помощи docker-compose
+```shell
+..> cd test-tasks
+../test-tasks> docker-compose up --build
+```
