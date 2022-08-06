@@ -1,5 +1,6 @@
 package ru.niatomi.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -12,6 +13,10 @@ import ru.niatomi.service.Impl.CalcServiceImpl;
  */
 @Configuration
 public class WebServiceConfig {
+
+    @Value("${wsdl}")
+    private String wsdlHost;
+
     @Bean
     Jaxb2Marshaller jaxb2Marshaller() {
         Jaxb2Marshaller jaxb2Marshaller = new Jaxb2Marshaller();
@@ -25,8 +30,8 @@ public class WebServiceConfig {
         webServiceTemplate.setMarshaller(jaxb2Marshaller());
         webServiceTemplate.setUnmarshaller(jaxb2Marshaller());
         webServiceTemplate.setDefaultUri(
-                "http://localhost:8080/ws/equation.wsdl");
-
+                "http://"+ wsdlHost +":8080"+ wsdlHost +"/ws/equation.wsdl");
+        System.out.println(wsdlHost);
         return webServiceTemplate;
     }
 
@@ -34,7 +39,7 @@ public class WebServiceConfig {
     @Primary
     public CalcServiceImpl CalcControllerImpl(Jaxb2Marshaller marshaller) {
         CalcServiceImpl service = new CalcServiceImpl();
-        service.setDefaultUri("http://localhost:8080/ws");
+        service.setDefaultUri("http://"+ wsdlHost +":8080/ws");
         service.setMarshaller(marshaller);
         service.setUnmarshaller(marshaller);
         return service;
