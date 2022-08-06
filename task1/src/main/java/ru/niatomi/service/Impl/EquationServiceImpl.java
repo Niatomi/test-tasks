@@ -16,7 +16,7 @@ public class EquationServiceImpl implements EquationService {
     public Solve solveEquation(int a, int b, int c) throws DiscriminantBelowZeroException {
 
         int D = (int) (Math.pow(b, 2) - 4*a*c);
-        if (D < 0) throw new DiscriminantBelowZeroException();
+        if (D < 0) throw new DiscriminantBelowZeroException(D);
 
         Solve solve = new Solve();
         solve.setD(D);

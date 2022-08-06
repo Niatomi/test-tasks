@@ -29,13 +29,16 @@ public class EquationEndpoint {
     @ResponsePayload
     public GetEquationResponse getCountry(@RequestPayload GetEquationRequest request) {
         GetEquationResponse response = new GetEquationResponse();
+        String equation = equationService.equationConcater(request.getA(), request.getB(), request.getC());
         try {
             Solve solve = equationService.solveEquation(request.getA(), request.getB(), request.getC());
-            response.setEquation(equationService.equationConcater(request.getA(), request.getB(), request.getC()));
+            response.setEquation(equation);
             response.setSolve(solve);
         } catch (DiscriminantBelowZeroException ex) {
             Solve solve = new Solve();
-            response.setEquation(equationService.equationConcater(request.getA(), request.getB(), request.getC()));
+            String[] s = ex.getMessage().split(" ");
+            solve.setD(Integer.valueOf(s[s.length - 1]));
+            response.setEquation(equation);
             response.setSolve(solve);
             response.setError(ex.getMessage());
         }
