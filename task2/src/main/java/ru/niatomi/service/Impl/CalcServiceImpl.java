@@ -22,8 +22,6 @@ import java.util.Optional;
 @Service
 public class CalcServiceImpl extends WebServiceGatewaySupport implements CalcService {
 
-    private String equation;
-
     @Override
     public JSONObject solveEquation(int a, int b, int c) {
         GetEquationResponse response = getSolve(a, b, c);
