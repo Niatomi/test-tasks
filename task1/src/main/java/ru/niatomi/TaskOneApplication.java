@@ -7,8 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author niatomi
  */
 @SpringBootApplication
-public class DemoApplication {
+public class TaskOneApplication {
     public static void main(String[] args) {
-        SpringApplication.run(DemoApplication.class, args);
+        SpringApplication.run(TaskOneApplication.class, args);
     }
 }
