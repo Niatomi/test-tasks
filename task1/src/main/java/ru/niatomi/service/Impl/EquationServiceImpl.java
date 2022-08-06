@@ -6,9 +6,6 @@ import ru.niatomi.equationserivce.Solve;
 import ru.niatomi.exceptions.DiscriminantBelowZeroException;
 import ru.niatomi.service.EquationService;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * @author niatomi
  */

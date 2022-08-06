@@ -4,8 +4,6 @@ import ru.niatomi.equationserivce.GetEquationRequest;
 import ru.niatomi.equationserivce.Solve;
 import ru.niatomi.exceptions.DiscriminantBelowZeroException;
 
-import java.util.Map;
-
 /**
  * @author niatomi
  */

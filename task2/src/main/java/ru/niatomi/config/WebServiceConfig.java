@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.ws.client.core.WebServiceTemplate;
-import ru.niatomi.service.CalcService;
 import ru.niatomi.service.Impl.CalcServiceImpl;
 
 /**
