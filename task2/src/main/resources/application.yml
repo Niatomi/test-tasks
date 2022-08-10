@@ -3,4 +3,4 @@ server:
   port: ${server_port:8081}
   servlet:
     context-path: /api
-
+wsdl: ${WSDL_HOST:localhost}
