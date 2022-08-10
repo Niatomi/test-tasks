@@ -2,6 +2,7 @@ version: '3'
 services:
   task1:
 #    build: ./task1
+
     image: niatomi/test-tasks_task1:latest
     container_name: task1
     networks:
@@ -11,6 +12,7 @@ services:
 
   task2:
 #    build: ./task2
+
     image: niatomi/test-tasks_task2:latest
     container_name: task2
     environment:
