@@ -5,9 +5,9 @@
     <xs:element name="getEquationRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="a" type="xs:int"/>
-                <xs:element name="b" type="xs:int"/>
-                <xs:element name="c" type="xs:int"/>
+                <xs:element name="a" type="xs:double"/>
+                <xs:element name="b" type="xs:double"/>
+                <xs:element name="c" type="xs:double"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -24,9 +24,9 @@
 
     <xs:complexType name="solve">
         <xs:sequence>
-            <xs:element name="D" type="xs:int"/>
-            <xs:element name="x1" minOccurs="0" type="xs:int"/>
-            <xs:element name="x2" minOccurs="0" type="xs:int"/>
+            <xs:element name="D" type="xs:double"/>
+            <xs:element name="x1" minOccurs="0" type="xs:double"/>
+            <xs:element name="x2" minOccurs="0" type="xs:double"/>
         </xs:sequence>
     </xs:complexType>
 </xs:schema>
