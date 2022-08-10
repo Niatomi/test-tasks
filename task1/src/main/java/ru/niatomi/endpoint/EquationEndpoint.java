@@ -27,21 +27,22 @@ public class EquationEndpoint {
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getEquationRequest")
     @ResponsePayload
-    public GetEquationResponse getCountry(@RequestPayload GetEquationRequest request) {
+    public GetEquationResponse getSolve(@RequestPayload GetEquationRequest request) throws DiscriminantBelowZeroException {
         GetEquationResponse response = new GetEquationResponse();
-        String equation = equationService.equationConcater(request.getA(), request.getB(), request.getC());
         try {
-            Solve solve = equationService.solveEquation(request.getA(), request.getB(), request.getC());
-            response.setEquation(equation);
-            response.setSolve(solve);
+            Map<String, Solve> solveMap = equationService.solveEquation(request.getA(), request.getB(), request.getC());
+            response.setEquation(solveMap.keySet().stream().findFirst().get());
+            response.setSolve(solveMap.values().stream().findFirst().get());
         } catch (DiscriminantBelowZeroException ex) {
+            response.setEquation(ex.getFormula());
+
             Solve solve = new Solve();
-            String[] s = ex.getMessage().split(" ");
-            solve.setD(Integer.valueOf(s[s.length - 1]));
-            response.setEquation(equation);
+            solve.setD(ex.getD());
             response.setSolve(solve);
+
             response.setError(ex.getMessage());
         }
+
         return response;
     }
 
