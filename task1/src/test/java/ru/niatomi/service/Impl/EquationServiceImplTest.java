@@ -5,6 +5,8 @@ import ru.niatomi.exceptions.DiscriminantBelowZeroException;
 import ru.niatomi.service.EquationService;
 import ru.niatomi.equationserivce.Solve;
 
+import java.util.Map;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -18,14 +20,17 @@ class EquationServiceImplTest {
     void solveEquationWithTwoSolvings() throws DiscriminantBelowZeroException {
 
         Solve expected = new Solve();
-        expected.setD(4);
-        expected.setX1(-3);
-        expected.setX2(-9);
+        expected.setD(4.0);
+        expected.setX1(-3.0);
+        expected.setX2(-9.0);
 
-        Solve actual = equationService.solveEquation(3, 4, 1);
+        Map<String, Solve> solveMap = equationService.solveEquation(3, 4, 1);
+        Solve actual = solveMap.values().stream().findFirst().get();
         assertEquals(expected.getD(), actual.getD());
         assertEquals(expected.getX1(), actual.getX1());
         assertEquals(expected.getX2(), actual.getX2());
+
+        assertEquals("3.0x^2+4.0x+1.0", solveMap.keySet().stream().findFirst().get());
 
     }
 
@@ -34,43 +39,27 @@ class EquationServiceImplTest {
 
         Solve expected = new Solve();
         expected.setD(0);
-        expected.setX1(-8);
+        expected.setX1(-0.5);
 
-        assertThrows(DiscriminantBelowZeroException.class, () -> {
-            Solve actual = equationService.solveEquation(3, 4, 9);
-        });
+        Map<String, Solve> solveMap = equationService.solveEquation(4, 4, 1);
+        Solve actual = solveMap.values().stream().findFirst().get();
+
+        assertEquals(expected.getD(), actual.getD());
+        assertEquals(expected.getX1(), actual.getX1());
+        assertNull(actual.getX2());
+
+        assertEquals("4.0x^2+4.0x+1.0",solveMap.keySet().stream().findFirst().get());
 
     }
 
     @Test()
     void solveEquationWithException() throws DiscriminantBelowZeroException {
 
-        Solve expected = new Solve();
-        expected.setD(0);
-        expected.setX1(-8);
+    assertThrows(DiscriminantBelowZeroException.class, () -> {
+        Map<String, Solve> solveMap = equationService.solveEquation(3, 4, 9);
+    });
 
-        Solve actual = equationService.solveEquation(4, 4, 1);
-        assertEquals(expected.getD(), actual.getD());
-        assertEquals(expected.getX1(), actual.getX1());
-        assertNull(actual.getX2());
 
-    }
-
-    @Test
-    void equationConcaterOnlyPositives() {
-
-        String expected = "1x^2+1x+1";
-        String actual = equationService.equationConcater(1, 1, 1);
-        assertEquals(expected, actual);
-
-    }
-
-    @Test
-    void equationConcaterOnlyNegatives() {
-
-        String expected = "-1x^2-1x-1";
-        String actual = equationService.equationConcater(-1, -1, -1);
-        assertEquals(expected, actual);
 
     }
 
