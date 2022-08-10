@@ -1,10 +1,15 @@
 package ru.niatomi.service.Impl;
 
 
+import org.decimal4j.util.DoubleRounder;
 import org.springframework.stereotype.Service;
 import ru.niatomi.equationserivce.Solve;
 import ru.niatomi.exceptions.DiscriminantBelowZeroException;
 import ru.niatomi.service.EquationService;
+import ru.niatomi.equationserivce.GetEquationResponse;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author niatomi
@@ -13,22 +18,33 @@ import ru.niatomi.service.EquationService;
 public class EquationServiceImpl implements EquationService {
 
     @Override
-    public Solve solveEquation(int a, int b, int c) throws DiscriminantBelowZeroException {
+    public Map<String, Solve> solveEquation(double a, double b, double c) throws DiscriminantBelowZeroException {
 
-        int D = (int) (Math.pow(b, 2) - 4*a*c);
-        if (D < 0) throw new DiscriminantBelowZeroException(D);
+        String equation = equationConcater(a, b, c);
+        Double D = (Math.pow(b, 2) - 4*a*c);
+
+        if (D < 0)
+            throw new DiscriminantBelowZeroException(D, equation);
 
         Solve solve = new Solve();
         solve.setD(D);
-        solve.setX1((int) (((-1)*b+Math.sqrt(D))/2*a));
-        if (D != 0)
-            solve.setX2((int) (((-1)*b-Math.sqrt(D))/2*a));
 
-        return solve;
+        if (D == 0) {
+            solve.setX1(DoubleRounder.round(-b/(2*a), 2));
+        }
+
+        if (D > 0) {
+            solve.setX1(DoubleRounder.round(((-1)*b+Math.sqrt(D))/2*a,2));
+            solve.setX2(DoubleRounder.round(((-1)*b-Math.sqrt(D))/2*a,2));
+        }
+
+        Map<String, Solve> solveMap = new HashMap<>();
+        solveMap.put(equation, solve);
+
+        return solveMap;
     }
 
-    @Override
-    public String equationConcater(int a, int b, int c) {
+    private static String equationConcater(double a, double b, double c) {
         String equation = a + "x^2";
 
         if (b > 0) {
