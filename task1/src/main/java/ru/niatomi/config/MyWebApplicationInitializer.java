@@ -19,7 +19,6 @@ public class MyWebApplicationInitializer implements WebApplicationInitializer {
 
         // Load Spring web application configuration
         AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
-        context.register(AppConfig.class);
         context.register(WebServiceConfig.class);
         context.refresh();
 
