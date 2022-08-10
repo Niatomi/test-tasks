@@ -1,12 +1,13 @@
 package ru.niatomi.service;
 
-import org.json.JSONObject;
+import ru.niatomi.calc.wsdl.GetEquationResponse;
+import ru.niatomi.calc.wsdl.Solve;
 
 /**
  * @author niatomi
  */
 public interface CalcService {
 
-    JSONObject solveEquation(int a, int b, int c);
+    Solve solveEquation(Double a, Double b, Double c);
 
 }

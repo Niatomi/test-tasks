@@ -1,8 +1,5 @@
 package ru.niatomi.service.Impl;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.json.XML;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
@@ -22,28 +19,11 @@ public class CalcServiceImpl extends WebServiceGatewaySupport implements CalcSer
     private String wsdlHost;
 
     @Override
-    public JSONObject solveEquation(int a, int b, int c) {
-        GetEquationResponse response = getSolve(a, b, c);
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("equation", response.getEquation());
-        Solve solveClass = (Solve) response.getSolve();
-        JSONObject solveJSON = new JSONObject();
-        solveJSON.put("D", solveClass.getD());
-        if (solveClass.getX1() != null) {
-            solveJSON.put("x1", solveClass.getX1());
-        }
-        if (solveClass.getX2() != null) {
-            solveJSON.put("x2", solveClass.getX2());
-        }
-        String error = response.getError();
-        if (error != null) {
-            jsonObject.put("error", error);
-        }
-        jsonObject.put("solve", solveJSON);
-        return jsonObject;
+    public Solve solveEquation(Double a, Double b, Double c) {
+        return getResponse(a, b, c).getSolve();
     }
 
-    private GetEquationResponse getSolve(int a, int b, int c) {
+    private GetEquationResponse getResponse(Double a, Double b, Double c) {
 
         GetEquationRequest request = new GetEquationRequest();
         request.setA(a);
